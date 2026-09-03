@@ -5,30 +5,20 @@ import PageLogin from './pages/PageLogin'
 import ListUsers from './pages/ListUsers'
 
 function App() {
+  const [tela, setTela] = useState('login')
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const [showCadastro, setShowCadastro] = useState(false);
+  function abrirTela(nomeDaTela) {
+    setTela(nomeDaTela)
+  }
 
   return (
-    <div>
-      {isLoggedIn ? (
-
-        <ListUsers />
-      ) : (
-
-        showCadastro ? (
-          <PageCadastro 
-            onVoltar={() => setShowCadastro(false)} 
-          />
-        ) : (
-          <PageLogin 
-            onEntrar={() => setIsLoggedIn(true)} 
-            onIrParaCadastro={() => setShowCadastro(true)} 
-          />
-        )
-      )}
-    </div>
+    <main id="app">
+      <section className="screen">
+        {tela === 'login' && <PageLogin onEntrar={() => abrirTela('usuarios')} onIrParaCadastro={() => abrirTela('cadastro')} />}
+        {tela === 'cadastro' && <PageCadastro onVoltar={() => abrirTela('login')} />}
+        {tela === 'usuarios' && <ListUsers onSair={() => abrirTela('login')} />}
+      </section>
+    </main>
   )
 }
 

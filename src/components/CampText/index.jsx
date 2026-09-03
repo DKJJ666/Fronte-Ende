@@ -1,10 +1,11 @@
-import "./index.css"
+import './index.css'
 
-function CampText(props) {
+function CampText({ label, type = 'text', placeholder }) {
   return (
-    <div className="camp-text-container">
-      <textarea className="camp-textarea" placeholder={props.placeholder}></textarea>
-    </div>
+    <label className="camp-text-container">
+      <span>{label}</span>
+      <input className="camp-textarea" type={type} placeholder={placeholder} />
+    </label>
   )
 }
 

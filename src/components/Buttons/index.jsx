@@ -1,11 +1,7 @@
-import "./index.css"
+import './index.css'
 
-function Buttons(props) {
-  return (
-    <div className="buttons">
-      <button className="button">{props.label1}</button>
-    </div>
-  )
+function Buttons({ children, type = 'button' }) {
+  return <button className="button" type={type}>{children}</button>
 }
 
 export default Buttons
