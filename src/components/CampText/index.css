@@ -1,0 +1,42 @@
+/* src/components/CampText/index.css */
+
+.camp-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.camp-text-container label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #5D4037; /* Marrom médio/escuro */
+}
+
+.camp-text-container input {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  color: #3E2723; /* Texto digitado em marrom muito escuro */
+  background-color: #FAFAFA;
+  border: 1.5px solid #BCAAA4; /* Borda bege/marrom claro */
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.camp-text-container input::placeholder {
+  color: #A1887F; /* Placeholder num tom de marrom suave */
+}
+
+/* Efeito quando o usuário clica para digitar (focus) */
+.camp-text-container input:focus {
+  border-color: #5D4037; /* Borda fica mais escura */
+  box-shadow: 0 0 0 3px rgba(93, 64, 55, 0.15); /* Sombreado suave em volta */
+}
+
+/* Estilo para quando o input estiver desabilitado */
+.camp-text-container input:disabled {
+  background-color: #EFEBE9;
+  color: #8D6E63;
+  cursor: not-allowed;
+}

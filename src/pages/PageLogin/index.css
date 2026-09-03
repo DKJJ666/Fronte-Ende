@@ -1,0 +1,30 @@
+/* src/pages/PageLogin/index.css */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #EFEBE9; /* Bege bem clarinho */
+  color: #4E342E; /* Marrom escuro para o texto principal */
+  padding: 2rem;
+}
+
+.login-container h1 {
+  margin-bottom: 1.5rem;
+  color: #3E2723; /* Marrom bem escuro e intenso */
+  font-size: 2rem;
+}
+
+.login-container form {
+  background-color: #FFFFFF;
+  padding: 2.5rem;
+  border-radius: 8px;
+  /* Sombra levemente marrom para combinar com o tema */
+  box-shadow: 0 8px 24px rgba(78, 52, 46, 0.15); 
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
