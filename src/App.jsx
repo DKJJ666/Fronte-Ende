@@ -1,24 +1,28 @@
 import './App.css'
-import { useState } from 'react'
+import { Route, Routes, Navigate, NavLink  } from 'react-router-dom'
 import PageCadastro from './pages/PageCadastro'
 import PageLogin from './pages/PageLogin'
 import ListUsers from './pages/ListUsers'
 
 function App() {
-  const [tela, setTela] = useState('login')
-
-  function abrirTela(nomeDaTela) {
-    setTela(nomeDaTela)
-  }
-
   return (
+    <>
+    <div className='app'>
+      <nav className='users-header'>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/cadastro">Cadastro</NavLink>
+        <NavLink to="/usuarios">Usuários</NavLink>
+      </nav>
+    </div>
     <main id="app">
-      <section className="screen">
-        {tela === 'login' && <PageLogin onEntrar={() => abrirTela('usuarios')} onIrParaCadastro={() => abrirTela('cadastro')} />}
-        {tela === 'cadastro' && <PageCadastro onVoltar={() => abrirTela('login')} />}
-        {tela === 'usuarios' && <ListUsers onSair={() => abrirTela('login')} />}
-      </section>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<PageLogin />} />
+        <Route path="/cadastro" element={<PageCadastro />} />
+        <Route path="/usuarios" element={<ListUsers />} />
+      </Routes>
     </main>
+    </>
   )
 }
 
