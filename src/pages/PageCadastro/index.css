@@ -11,3 +11,8 @@
 @media (max-width: 650px) { .auth-layout-cadastro { width: calc(100% - 28px); min-height: auto; margin: 22px auto; border-radius: 12px; }.auth-layout-cadastro .auth-photo { min-height: 230px; height: 230px; }.auth-layout-cadastro .cadastro-container { min-height: auto; } }
 
 .form-message { margin: 14px 0 0; font-size: 11px; text-align: center; }.form-message.success { color: #5f8a6b; }
+
+.auth-layout-cadastro .auth-photo { display: flex; align-items: center; justify-content: center; }.auth-layout-cadastro .auth-photo img { width: 100%; height: 100%; object-position: center center; object-fit: cover; }
+
+.auth-layout-cadastro { grid-template-columns: 1fr 1fr; align-items: stretch; }.auth-layout-cadastro .cadastro-container { display: flex; align-items: stretch; justify-content: stretch; padding: 0; }.auth-layout-cadastro .auth-card { display: flex; width: 100%; min-height: 650px; flex-direction: column; justify-content: center; padding: 58px 72px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+@media (max-width: 800px) { .auth-layout-cadastro { grid-template-columns: 1fr; }.auth-layout-cadastro .auth-card { min-height: auto; padding: 38px 28px; } }

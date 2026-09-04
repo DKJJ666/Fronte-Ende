@@ -36,9 +36,6 @@ export default function ListUsers({ onSair }) {
       </aside>
       <section className="users-main">
         <header className="users-header">
-          <span>Dashboard</span>
-          <b>/</b>
-          <strong>Usuários</strong>
           {/* <nav>
             <button type="button">Dashboard</button>
             <button type="button">Livraria</button>
