@@ -1,8 +1,30 @@
 import "./index.css";
+import { useEffect, useState } from 'react';
+import api from '../../services/api.js';
 
-const users = [];
 
-export default function ListUsers({ onSair }) {
+
+export default function ListUsers({onSair}) {
+  const [usuarios, setUsuarios] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    api.get('/usuarios')
+      .then((response) => {
+        setUsuarios(response.data);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar usuários:', error);
+      })
+      .finally(() => setCarregando(false));
+  }, []);
+
+  if (carregando) {
+    return (
+      <p>Carregando, baby...</p>
+    );
+  }
+
   return (
     <div className="list-container">
       <aside className="sidebar">
@@ -36,14 +58,6 @@ export default function ListUsers({ onSair }) {
       </aside>
       <section className="users-main">
         <header className="users-header">
-          {/* <nav>
-            <button type="button">Dashboard</button>
-            <button type="button">Livraria</button>
-            <button type="button">Sistema</button>
-            <button className="selected" type="button">
-              Usuários
-            </button>
-          </nav> */}
           <span className="profile-dot">A</span>
         </header>
         <div className="users-content">
@@ -70,7 +84,7 @@ export default function ListUsers({ onSair }) {
               </span>
               <span>AM</span>
               <span>CR</span>
-              <span>+{users.length}</span>
+              <span>+{usuarios.length}</span>
             </div>
           </div>
           <div className="table-box">
@@ -81,6 +95,14 @@ export default function ListUsers({ onSair }) {
               <b>◉</b>
             </div>
             <div className="table-empty-space" />
+             <div>
+      <h2>Lista de Usuários</h2>
+      <ul>
+        {usuarios.map((usuario) => (
+          <li key={usuario.id}>{usuario.nome}</li>
+        ))}
+      </ul>
+    </div>
           </div>
         </div>
       </section>
