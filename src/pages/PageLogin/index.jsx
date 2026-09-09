@@ -13,17 +13,29 @@ export default function PageLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await api.post("/Login", { email, senha });
-      localStorage.setItem("token", res.data.token);
+  e.preventDefault();
+
+  try {
+    const res = await api.post("/usuarios/login", {
+      email,
+      senha,
+    });
+
+    console.log("Resposta da API:", res.data);
+
+    localStorage.setItem("token", res.data.token);
+
+    if (res.data.usuario) {
       localStorage.setItem("perfil", res.data.usuario.perfil);
-      setError("");
-      navigate("/usuarios");
-    } catch (err) {
-      setError("Email ou senha inválidos", err);
     }
-  };
+
+    setError("");
+    navigate("/usuarios");
+  } catch (err) {
+    console.error("Erro no login:", err.response?.data || err.message);
+    setError("Email ou senha inválidos");
+  }
+};
 
   return (
     <div className="auth-layout auth-layout-login">
