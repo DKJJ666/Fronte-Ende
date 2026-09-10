@@ -1,28 +1,37 @@
 import "./index.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import api from '../../services/api.js';
 
-
-
-export default function ListUsers({onSair}) {
+export default function ListUsers({ onSair }) {
   const [usuarios, setUsuarios] = useState([]);
   const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState('');
 
   useEffect(() => {
+    let ativo = true;
+
     api.get('/usuarios')
       .then((response) => {
-        setUsuarios(response.data);
+        if (!ativo) return;
+        const dados = Array.isArray(response.data) ? response.data : [];
+        setUsuarios(dados);
       })
       .catch((error) => {
+        if (!ativo) return;
         console.error('Erro ao buscar usuários:', error);
+        setErro('Não foi possível carregar os usuários. Tente novamente.');
       })
-      .finally(() => setCarregando(false));
+      .finally(() => {
+        if (ativo) setCarregando(false);
+      });
+
+    return () => {
+      ativo = false;
+    };
   }, []);
 
   if (carregando) {
-    return (
-      <p>Carregando, baby...</p>
-    );
+    return <p className="users-status">Carregando usuários...</p>;
   }
 
   return (
@@ -37,74 +46,54 @@ export default function ListUsers({onSair}) {
           </div>
         </div>
         <p className="sidebar-label">Menu principal</p>
-        <button className="sidebar-item" type="button">
-          ▦ <span>Dashboard</span>
-        </button>
-        <button className="sidebar-item" type="button">
-          ▤ <span>Biblioteca</span>
-        </button>
-        <button className="sidebar-item" type="button">
-          ☷ <span>Sistema</span>
-        </button>
-        <button className="sidebar-item active" type="button">
-          ♧ <span>Usuários</span>
-        </button>
+        <button className="sidebar-item" type="button">▦ <span>Dashboard</span></button>
+        <button className="sidebar-item" type="button">▤ <span>Biblioteca</span></button>
+        <button className="sidebar-item" type="button">☷ <span>Sistema</span></button>
+        <button className="sidebar-item active" type="button">♧ <span>Usuários</span></button>
         <div className="sidebar-bottom">
           <span>☾</span>
-          <button type="button" onClick={onSair}>
-            ↪
-          </button>
+          <button type="button" onClick={onSair} aria-label="Sair">↪</button>
         </div>
       </aside>
       <section className="users-main">
-        <header className="users-header">
-          <span className="profile-dot">A</span>
-        </header>
+        <header className="users-header"><span className="profile-dot">A</span></header>
         <div className="users-content">
           <div className="users-banner">
             <div className="banner-image">
-              <img
-                src="/fig-banner-dashboard.jpg"
-                alt="Criança usando um notebook rosa"
-              />
+              <img src="/fig-banner-dashboard.jpg" alt="Criança usando um notebook rosa" />
             </div>
             <div className="banner-art">Senhas são sigilosas.</div>
           </div>
           <div className="users-welcome">
             <div>
               <h1>Olá, Admin01, seja bem vindo ao nosso sistema moderno</h1>
-              <p>
-                Precisa de alguma ajuda?{" "}
-                <a href="#suporte">Conte com nosso suporte.</a>
-              </p>
+              <p>Precisa de alguma ajuda? <a href="#suporte">Conte com nosso suporte.</a></p>
             </div>
             <div className="welcome-avatars">
-              <span className="photo-avatar">
-                <img src="/fig-avatar-admin.png" alt="" />
-              </span>
-              <span>AM</span>
-              <span>CR</span>
-              <span>+{usuarios.length}</span>
+              <span className="photo-avatar"><img src="/fig-avatar-admin.png" alt="" /></span>
+              <span>AM</span><span>CR</span><span>+{usuarios.length}</span>
             </div>
           </div>
           <div className="table-box">
-            <div className="table-head">
-              <span>Nome</span>
-              <span>Email</span>
-              <span>Senha</span>
-              <span>Ações</span>
+            <div className="table-head" role="row">
+              <span>Nome</span><span>Email</span><span>Senha</span><span>Ações</span>
             </div>
-            <div className="table-empty-space" />
-            <div className="table-body">
-              {usuarios.map((usuario) => (
-                <div className="table-row" key={usuario.id}>
-                  <span>{usuario.nome}</span>
-                  <span>{usuario.email}</span>
-                  <span>{usuario.senha}</span>
-                  <b>✖</b>
-                </div>
-              ))}
-            </div>
+            {erro ? (
+              <p className="table-message error-message">{erro}</p>
+            ) : usuarios.length === 0 ? (
+              <p className="table-message">Nenhum usuário cadastrado.</p>
+            ) : (
+              <div className="table-body">
+                {usuarios.map((usuario) => (
+                  <div className="table-row" key={usuario.id ?? usuario.email} role="row">
+                    <span>{usuario.nome || 'Não informado'}</span>
+                    <span>{usuario.email || 'Não informado'}</span>
+                    <span aria-label="Senha protegida">••••••••</span>
+                    <button className="delete-button" type="button" aria-label={`Excluir ${usuario.nome || 'usuário'}`}>✖</button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
