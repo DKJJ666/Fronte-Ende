@@ -92,17 +92,19 @@ export default function ListUsers({onSair}) {
               <span>Nome</span>
               <span>Email</span>
               <span>Senha</span>
-              <b>◉</b>
+              <span>Ações</span>
             </div>
             <div className="table-empty-space" />
-             <div>
-      <h2>Lista de Usuários</h2>
-      <ul>
-        {usuarios.map((usuario) => (
-          <li key={usuario.id}>{usuario.nome}</li>
-        ))}
-      </ul>
-    </div>
+            <div className="table-body">
+              {usuarios.map((usuario) => (
+                <div className="table-row" key={usuario.id}>
+                  <span>{usuario.nome}</span>
+                  <span>{usuario.email}</span>
+                  <span>{usuario.senha}</span>
+                  <b>✖</b>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
