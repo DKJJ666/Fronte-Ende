@@ -10,7 +10,7 @@ export default function PageCadastro() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [perfil, setPerfil] = useState("Usuario");
+  const [perfil, setPerfil] = useState("");
   // const [confirmacao, setConfirmacao] = useState("");
   // const [aceitou, setAceitou] = useState(false);
   const [mensagem, setMensagem] = useState("");
@@ -97,7 +97,7 @@ export default function PageCadastro() {
               >
                 <option value="">Selecione um perfil</option>
                 <option value="usuario">Usuário</option>
-                <option value="admin">Funcionario</option>
+                <option value="funcionario">Funcionário</option>
               </select>
             </div>
             {/* <label className="check-row">

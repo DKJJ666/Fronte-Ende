@@ -12,6 +12,8 @@ export default function PageLogin() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  
+
   const handleLogin = async (e) => {
   e.preventDefault();
 
@@ -30,7 +32,7 @@ export default function PageLogin() {
     }
 
     setError("");
-    navigate("/usuarios");
+    navigate("/livros");
   } catch (err) {
     console.error("Erro no login:", err.response?.data || err.message);
     setError("Email ou senha inválidos");

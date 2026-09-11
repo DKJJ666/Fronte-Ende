@@ -3,6 +3,10 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import PageCadastro from './pages/PageCadastro'
 import PageLogin from './pages/PageLogin'
 import ListUsers from './pages/ListUsers'
+import PageBooks from './pages/PageBooks'
+
+
+
 
 function App() {
   return (
@@ -13,6 +17,7 @@ function App() {
           <Route path="/login" element={<PageLogin />} />
           <Route path="/cadastro" element={<PageCadastro />} />
           <Route path="/usuarios" element={<ListUsers />} />
+          <Route path="/livros" element={<PageBooks />} />
         </Routes>
       </main>
     </>
